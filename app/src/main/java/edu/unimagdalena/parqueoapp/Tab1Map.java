@@ -26,12 +26,12 @@ public class Tab1Map extends Fragment implements OnMapReadyCallback {
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
-    private int id;
-    private String nombre;
-    private double longitud,latitud;
-    private int costo;
-    private int numeroiter;
-    private ArrayTab1 arrayTab1s;
+    int id;
+    String nombre;
+    double longitud,latitud;
+    int costo;
+    int numeroiter;
+    ArrayTab1 arrayTab1s;
     private ArrayList<ArrayTab1> arrayTab1= new ArrayList<ArrayTab1>();
     @Override
     public void onCreate(Bundle savedInstanceStateState){

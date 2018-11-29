@@ -141,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
                             Log.i("aja","("+locales.getId()+","+i+")");
                             if(locales.getId()==i) {
                                 bundle2.putInt("id"+i,locales.getId());
-                                bundle2.putString("nombre2"+i,locales.getNombre());
-                                bundle2.putDouble("lon2" + i, locales.getLongitud());
-                                bundle2.putDouble("lat2" + i, locales.getLatitud());
+                                bundle2.putString("nombre"+i,locales.getNombre());
+                                bundle2.putDouble("lon" + i, locales.getLongitud());
+                                bundle2.putDouble("lat" + i, locales.getLatitud());
                                 bundle2.putString("prop" + i, locales.getPropetario());
                                 bundle2.putInt("cos"+i,locales.getCosto());
                                 bundle2.putString("hor"+i,locales.getHorario());
@@ -152,9 +152,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    bundle2.putInt("termina2",numiteraccion);
+                    bundle2.putInt("termina",numiteraccion);
                     Log.i("JOderMa",bundle2.toString());
-
                     tab2.setArguments(bundle2);
                     return tab2;
 
