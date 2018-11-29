@@ -1,8 +1,6 @@
 package edu.unimagdalena.parqueoapp;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,47 +9,73 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private ArrayList<Locales> taba1,taba2,taba3;
+    private int numiteraccion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        HttpClient httpClient = new HttpClient(new OnHttpRequestComplete() {
+            @Override
+            public void onComplete(Response status) {
+                if(status.isSuccess()){
+                    Gson gson = new GsonBuilder().create();
+                    try {
+                        JSONObject jsonObject = new JSONObject(status.getResult());
+                        JSONArray jsonArray = jsonObject.getJSONArray("locales");
+                        ArrayList<Locales> locales = new ArrayList<Locales>();
+                        numiteraccion = jsonArray.length();
+                        for (int i=0; i< jsonArray.length();i++){
+                            String locales1 = jsonArray.getString(i);
+                            Locales locales2 = gson.fromJson(locales1,Locales.class);
+                            locales.add(locales2);
+                        }
+                        taba1= GetLocalesArray(locales);
+                        taba2= GetLocalesArray(locales);
+                        taba3= GetLocalesArray(locales);
+                        Log.i("taba1",taba1.toString());
+                        Log.i("JODEEER",locales.toString());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(MainActivity.this,status.getResult(),Toast.LENGTH_SHORT).show();
+                    System.out.println(status.getResult());
+                }
+            }
+        });
+        httpClient.excecute("https://inventoryapphola.000webhostapp.com/informacion.json");
+        //httpClient.excecute("https://inventoryapphola.000webhostapp.com/json.txt");
+
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager =  findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout =  findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -60,33 +84,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public ArrayList<Locales> GetLocalesArray(ArrayList<Locales> joda){
+        return joda;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    //deleted PlaceholderFragment class from here
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -98,10 +115,47 @@ public class MainActivity extends AppCompatActivity {
             switch (position){
                 case 0:
                     Tab1Map tab1= new Tab1Map();
+                    Bundle bundle = new Bundle();
+                    for(int i=1;i<numiteraccion+1;i++){
+                        for(Locales locales: taba1){
+                            if(locales.getId()==i) {
+                                bundle.putInt("id"+i,locales.getId());
+                                bundle.putDouble("lon" + i, locales.getLongitud());
+                                bundle.putDouble("lat" + i, locales.getLatitud());
+                                bundle.putString("nombre"+i,locales.getNombre());
+                                bundle.putInt("costo"+i,locales.getCosto());
+                            }
+                        }
+                    }
+                    bundle.putInt("termina",numiteraccion);
+                    Log.i("JOderMa",bundle.toString());
+                    tab1.setArguments(bundle);
                     return tab1;
+
 
                 case 1:
                     Tab2List tab2 = new Tab2List();
+                    Bundle bundle2 = new Bundle();
+                    for(int i=1;i<numiteraccion+1;i++){
+                        for(Locales locales: taba2){
+                            Log.i("aja","("+locales.getId()+","+i+")");
+                            if(locales.getId()==i) {
+                                bundle2.putInt("id"+i,locales.getId());
+                                bundle2.putString("nombre2"+i,locales.getNombre());
+                                bundle2.putDouble("lon2" + i, locales.getLongitud());
+                                bundle2.putDouble("lat2" + i, locales.getLatitud());
+                                bundle2.putString("prop" + i, locales.getPropetario());
+                                bundle2.putInt("cos"+i,locales.getCosto());
+                                bundle2.putString("hor"+i,locales.getHorario());
+                                bundle2.putInt("cupo"+i,locales.getCupo());
+                                bundle2.putString("image"+i,locales.getImagenurl());
+                            }
+                        }
+                    }
+                    bundle2.putInt("termina2",numiteraccion);
+                    Log.i("JOderMa",bundle2.toString());
+
+                    tab2.setArguments(bundle2);
                     return tab2;
 
                 case 2:
@@ -114,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 3;
         }
 
