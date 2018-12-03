@@ -1,5 +1,6 @@
 package edu.unimagdalena.parqueoapp;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Context contextglobal= this;
 
     private ViewPager mViewPager;
     private ArrayList<Locales> taba1,taba2,taba3;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         HttpClient httpClient = new HttpClient(new OnHttpRequestComplete() {
             @Override
@@ -157,9 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     tab2.setArguments(bundle2);
                     return tab2;
 
-                case 2:
-                    Tab3Info tab3 = new Tab3Info();
-                    return tab3;
+
                 default:
                     return null;
             }
@@ -167,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -177,8 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     return "Maps";
                 case 1:
                     return "List";
-                case 2:
-                    return "Info";
+
             }
             return null;
         }

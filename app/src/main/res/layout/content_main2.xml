@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Main2Activity"
+    tools:showIn="@layout/activity_main2">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="167dp"
+        android:text="@string/nom" />
+
+    <TextView
+        android:id="@+id/tViewname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="169dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="195dp"
+        android:text="@string/prop" />
+
+    <TextView
+        android:id="@+id/tViewpropetario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tViewname"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="224dp"
+        android:text="@string/costo" />
+
+    <TextView
+        android:id="@+id/tViewcosto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tViewname"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="-1dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginBottom="294dp"
+        android:text="@string/hor" />
+
+    <TextView
+        android:id="@+id/tViewhorario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tViewname"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tViewhorario"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="-46dp"
+        android:text="@string/cup" />
+
+    <TextView
+        android:id="@+id/tViewcupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tViewhorario"
+        android:layout_alignStart="@+id/tViewname"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="-51dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+</RelativeLayout>
