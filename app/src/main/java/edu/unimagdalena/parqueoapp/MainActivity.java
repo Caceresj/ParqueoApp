@@ -56,14 +56,12 @@ public class MainActivity extends AppCompatActivity {
                         taba1= GetLocalesArray(locales);
                         taba2= GetLocalesArray(locales);
                         taba3= GetLocalesArray(locales);
-                        Log.i("taba1",taba1.toString());
-                        Log.i("JODEEER",locales.toString());
 
                     }catch (Exception e){
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(MainActivity.this,status.getResult(),Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(MainActivity.this,status.getResult(),Toast.LENGTH_SHORT).show();
                     System.out.println(status.getResult());
                 }
             }

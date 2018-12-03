@@ -93,11 +93,7 @@ public class Tab2List extends Fragment {
                         startActivity(intent);
                     }
                 }
-
-
-
-
-                Toast.makeText(getActivity().getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity().getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
